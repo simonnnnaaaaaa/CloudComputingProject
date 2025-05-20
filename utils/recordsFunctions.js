@@ -5,7 +5,7 @@ export const getRecords = async () => {
         })
         const data = await response.json()
 
-        if(!data) {
+        if (!data) {
             return []
         }
 
@@ -36,7 +36,7 @@ export const createRecord = async (entry) => {
         const response = await fetch('/api/records', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(entry)
         })
@@ -46,6 +46,37 @@ export const createRecord = async (entry) => {
         return data
     }
     catch (error) {
+        console.log(error)
+    }
+}
+
+export const getRecord = async (id) => {
+    try {
+        const response = await fetch(`/api/records?id=${id}`, {
+            method: 'GET'
+        })
+
+        const data = await response.json()
+
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const updateRecord = async (entry) => {
+    try {
+        const response = await fetch('/api/records', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(entry)
+        })
+        const data = await response.json()
+
+        return data
+    } catch (error) {
         console.log(error)
     }
 }
