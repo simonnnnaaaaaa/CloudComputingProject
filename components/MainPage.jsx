@@ -14,7 +14,6 @@ const MainPage = () => {
         try {
             const response = await getRecords()
 
-            console.log(response)
             setData(response.data)
             setIsLoading(false)
             return response.data;
