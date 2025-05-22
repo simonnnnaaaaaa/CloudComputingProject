@@ -1,5 +1,5 @@
 import openai from "@/lib/openai"
-import { sendBadRequest, sendOk } from "@/utils/apiMethods"
+import { sendBadRequest, sendOk, sendMethodNotAllowed } from "@/utils/apiMethods"
 import { MAX_MEMORY } from "@/utils/constants"
 
 const SYSTEM_PROMPTS = {
@@ -23,7 +23,7 @@ const SYSTEM_PROMPTS = {
     }
 }
 
-const chatCompletion = async (messages, max_tokens, temperature) {
+const chatCompletion = async (messages, max_tokens, temperature) => {
     const rawResponse = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
         messages: messages,
@@ -54,15 +54,17 @@ const converseChat = async (res, messages, role) => {
 
     } catch (error) {
         console.log(error)
+        return res.status(500).json({ error: 'Server error' });
+
     }
 }
 
 const converse = (res, messages, type) => {
     switch (type) {
         case SYSTEM_PROMPTS.SIMPLE_ASSISTANT.TYPE:
-            return converseChat(res,messages, typSYSTEM_PROMPTS.SIMPLE_ASSISTANT)
+            return converseChat(res,messages, SYSTEM_PROMPTS.SIMPLE_ASSISTANT)
         case SYSTEM_PROMPTS.USER.TYPE:
-            return converseChat(res,messages, typSYSTEM_PROMPTS.USER)
+            return converseChat(res,messages, SYSTEM_PROMPTS.USER)
         default:
             return sendBadRequest(res, 'Wrong type of user')
     }
