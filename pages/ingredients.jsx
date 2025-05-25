@@ -14,11 +14,11 @@ export default function Home() {
 
   return (
     <div className="max-w-xl mx-auto mt-20 p-6 bg-white rounded shadow">
-      <h1 className="text-2xl font-bold mb-4 text-center">Generează rețete 🍽️</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Generate recipes 🍽️</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
-          placeholder="Ex: ouă, brânză, roșii"
+          placeholder="Enter the ingredients"
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded"
@@ -27,7 +27,7 @@ export default function Home() {
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
-          Generează rețete
+          Generate recipes
         </button>
       </form>
     </div>
