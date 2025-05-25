@@ -1,7 +1,12 @@
-import MainPage from "@/components/MainPage";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  return (
-    <MainPage />
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/ingredients");  
+  }, [router]);
+
+  return null; 
 }

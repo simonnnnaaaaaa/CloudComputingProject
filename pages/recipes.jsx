@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Spinner from '@/components/Spinner';
+import StarRating from "@/components/StarRating";
+import { useSession } from 'next-auth/react';
 
 const RecipesPage = () => {
     const router = useRouter();
@@ -8,6 +10,9 @@ const RecipesPage = () => {
 
     const [recipes, setRecipes] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const { data: session } = useSession();
+
 
     useEffect(() => {
         if (!ingredients) return;
@@ -42,6 +47,9 @@ const RecipesPage = () => {
                         <li key={recipe.id} className="border rounded shadow p-2 bg-white flex flex-col justify-between">
                             <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover rounded" />
                             <h3 className="text-center font-semibold mt-2">{recipe.title}</h3>
+
+                              <StarRating recipeId={recipe.id} isLoggedIn={!!session} />
+
 
                             <a
                                 href={`https://spoonacular.com/recipes/${recipe.title.replaceAll(" ", "-")}-${recipe.id}`}
